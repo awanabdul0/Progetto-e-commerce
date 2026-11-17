@@ -44,3 +44,12 @@ Ogni prodotto ha: `id`, `name`, `category`, `price`, `available` (disponibilità
 
 Le immagini sono SVG generati da una funzione (`makeImage`), così il sito funziona anche offline e senza file esterni.
 Per aggiungere un prodotto basta aggiungere un oggetto all'array `PRODUCTS`.
+
+## 6. Design e responsività (`style/layout-responsive`)
+Il foglio di stile [`css/style.css`](css/style.css) definisce l'identità del brand con variabili CSS (`--ink`, `--forest`, `--clay`, `--bone`) e tipografia sans-serif in maiuscolo per un look streetwear.
+
+- **CSS Grid** per la griglia prodotti (`repeat(auto-fill, minmax(240px, 1fr))`) e per la barra dei valori del brand.
+- **Flexbox** per header, barra dei filtri, drawer del carrello e righe del riepilogo.
+- **Breakpoint:** 860 px (valori a 2 colonne), 720 px (catalogo a 2 colonne, modale a colonna singola, form a una colonna), 420 px (catalogo a 1 colonna).
+- Accessibilità: `:focus-visible` evidente, contrasto elevato, `prefers-reduced-motion` rispettato.
+- Badge «Limited» e «Esaurito» sulle card; tabella della guida alle taglie con scroll orizzontale su schermi stretti.
