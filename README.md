@@ -29,3 +29,18 @@ Tutti i componenti contribuiscono attivamente allo sviluppo del codice.
 
 ## 4. Stack tecnologico
 HTML5 · CSS3 (Grid, Flexbox, variabili CSS) · JavaScript vanilla (ES6+). Nessun framework né dipendenza esterna.
+
+## 5. Catalogo dinamico (`feat/catalogo-dinamico`)
+La pagina `index.html` contiene solo lo scheletro: **nessun prodotto è scritto in HTML**. I 12 articoli sono definiti come array di oggetti in [`js/products.js`](js/products.js) e vengono mostrati via JavaScript.
+
+Ogni prodotto ha: `id`, `name`, `category`, `price`, `available` (disponibilità), `limited` (edizione limitata), `description`, `notes` (materiali), `sizes`, `colors`, `sizeGuide` e `image`.
+
+| Categoria | Prodotti |
+|---|---|
+| T-shirt | Tee Radice Basic, Tee Oversize «Terra», Tee «Alba» (limited), Tee «Marea» (limited, esaurita) |
+| Felpe | Hoodie Essential, Girocollo Riciclata, Zip Hoodie «Nebbia» (limited) |
+| Pantaloni | Cargo Canvas, Jogger Organic Fleece |
+| Accessori | Cappellino 6 pannelli, Tote Bag, Calze pack da 3 |
+
+Le immagini sono SVG generati da una funzione (`makeImage`), così il sito funziona anche offline e senza file esterni.
+Per aggiungere un prodotto basta aggiungere un oggetto all'array `PRODUCTS`.
