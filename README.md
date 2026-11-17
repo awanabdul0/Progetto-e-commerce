@@ -53,3 +53,13 @@ Il foglio di stile [`css/style.css`](css/style.css) definisce l'identità del br
 - **Breakpoint:** 860 px (valori a 2 colonne), 720 px (catalogo a 2 colonne, modale a colonna singola, form a una colonna), 420 px (catalogo a 1 colonna).
 - Accessibilità: `:focus-visible` evidente, contrasto elevato, `prefers-reduced-motion` rispettato.
 - Badge «Limited» e «Esaurito» sulle card; tabella della guida alle taglie con scroll orizzontale su schermi stretti.
+
+## 7. Filtri, ricerca e dettaglio prodotto (`feat/filtri-dettaglio-prodotto`)
+La logica è in [`js/app.js`](js/app.js), con un unico oggetto `state` che contiene filtro, ordinamento, ricerca e carrello.
+
+- **Filtro per categoria:** il menu è generato automaticamente dalle categorie presenti nei dati.
+- **Ordinamento per prezzo:** crescente o decrescente.
+- **Ricerca in tempo reale:** a ogni tasto cerca in nome, descrizione, materiali, categoria e colori (es. «nero», «oversize», «limited»). I tre controlli si combinano tra loro.
+- **Modale di dettaglio** (`<dialog>`): immagine, descrizione, materiali, selezione di **taglia** e **colore** (solo se il prodotto li prevede) e pulsante «Aggiungi al carrello». Se il prodotto è esaurito il pulsante lascia il posto al messaggio «Attualmente non disponibile».
+- **Guida alle taglie:** seconda modale con tabella di misure (petto, lunghezza, spalle da XS a XXL), apribile dal link accanto al menu delle taglie.
+- Tutti i testi dei dati passano da `escapeHTML` prima di essere inseriti nel DOM.
