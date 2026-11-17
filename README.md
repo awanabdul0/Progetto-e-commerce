@@ -70,3 +70,17 @@ La logica è in [`js/app.js`](js/app.js), con un unico oggetto `state` che conti
 - Pulsanti **+ / −** per le quantità (a 0 la riga viene rimossa), «Rimuovi» e «Svuota carrello».
 - **Calcolo automatico:** subtotale, spedizione e totale. La spedizione costa **4,90 €** ed è **gratuita da 50 €** di subtotale; un messaggio indica quanto manca per ottenerla.
 - **Persistenza:** il carrello è salvato in `localStorage` (chiave `radice_cart_v1`) a ogni modifica e ricaricato all'avvio. Se `localStorage` non è disponibile o i dati sono corrotti, il sito riparte con un carrello vuoto senza errori. I prodotti non più a catalogo o diventati esauriti vengono tolti dal carrello.
+
+## 9. Simulazione di checkout
+Il pulsante «Vai al checkout» apre una modale con un form validato **lato client** (nessun dato viene inviato a un server):
+
+| Campo | Regola |
+|---|---|
+| Nome e cognome | almeno due parole |
+| Email | formato `nome@dominio.xx` |
+| Indirizzo | almeno 5 caratteri e un numero civico |
+| Città | almeno 2 caratteri |
+| CAP | esattamente 5 cifre |
+| Metodo di pagamento | scelta obbligatoria (carta, PayPal, contrassegno: tutti simulati) |
+
+Gli errori compaiono sotto ogni campo alla perdita del focus e all'invio; al primo errore il cursore torna sul campo da correggere. A form valido compare la **schermata di conferma** con numero d'ordine (`RD-…`) ed email del cliente, e il **carrello viene svuotato** (anche in `localStorage`).
