@@ -63,3 +63,24 @@ La logica è in [`js/app.js`](js/app.js), con un unico oggetto `state` che conti
 - **Modale di dettaglio** (`<dialog>`): immagine, descrizione, materiali, selezione di **taglia** e **colore** (solo se il prodotto li prevede) e pulsante «Aggiungi al carrello». Se il prodotto è esaurito il pulsante lascia il posto al messaggio «Attualmente non disponibile».
 - **Guida alle taglie:** seconda modale con tabella di misure (petto, lunghezza, spalle da XS a XXL), apribile dal link accanto al menu delle taglie.
 - Tutti i testi dei dati passano da `escapeHTML` prima di essere inseriti nel DOM.
+
+## 8. Carrello interattivo e persistente
+- **Drawer laterale** che si apre dal pulsante in header (o automaticamente dopo l'aggiunta di un prodotto) e si chiude con la X, cliccando fuori o con `Esc`. Il **badge** nell'header mostra il numero totale di pezzi e si aggiorna in tempo reale.
+- Ogni riga è identificata da **prodotto + taglia + colore**: la stessa maglia in due taglie diverse resta su due righe distinte.
+- Pulsanti **+ / −** per le quantità (a 0 la riga viene rimossa), «Rimuovi» e «Svuota carrello».
+- **Calcolo automatico:** subtotale, spedizione e totale. La spedizione costa **4,90 €** ed è **gratuita da 50 €** di subtotale; un messaggio indica quanto manca per ottenerla.
+- **Persistenza:** il carrello è salvato in `localStorage` (chiave `radice_cart_v1`) a ogni modifica e ricaricato all'avvio. Se `localStorage` non è disponibile o i dati sono corrotti, il sito riparte con un carrello vuoto senza errori. I prodotti non più a catalogo o diventati esauriti vengono tolti dal carrello.
+
+## 9. Simulazione di checkout
+Il pulsante «Vai al checkout» apre una modale con un form validato **lato client** (nessun dato viene inviato a un server):
+
+| Campo | Regola |
+|---|---|
+| Nome e cognome | almeno due parole |
+| Email | formato `nome@dominio.xx` |
+| Indirizzo | almeno 5 caratteri e un numero civico |
+| Città | almeno 2 caratteri |
+| CAP | esattamente 5 cifre |
+| Metodo di pagamento | scelta obbligatoria (carta, PayPal, contrassegno: tutti simulati) |
+
+Gli errori compaiono sotto ogni campo alla perdita del focus e all'invio; al primo errore il cursore torna sul campo da correggere. A form valido compare la **schermata di conferma** con numero d'ordine (`RD-…`) ed email del cliente, e il **carrello viene svuotato** (anche in `localStorage`).
