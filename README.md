@@ -84,3 +84,33 @@ Il pulsante «Vai al checkout» apre una modale con un form validato **lato clie
 | Metodo di pagamento | scelta obbligatoria (carta, PayPal, contrassegno: tutti simulati) |
 
 Gli errori compaiono sotto ogni campo alla perdita del focus e all'invio; al primo errore il cursore torna sul campo da correggere. A form valido compare la **schermata di conferma** con numero d'ordine (`RD-…`) ed email del cliente, e il **carrello viene svuotato** (anche in `localStorage`).
+
+## 10. Avvio in locale
+```bash
+git clone <URL-del-repository>
+cd <nome-cartella>
+# opzione 1: apri direttamente index.html nel browser
+# opzione 2: server locale
+python3 -m http.server 8000   # poi visita http://localhost:8000
+```
+Non servono installazioni né build.
+
+## 11. Struttura del progetto
+```
+index.html            # scheletro della pagina, modali, drawer, form
+css/style.css         # stile, Grid, Flexbox, responsive
+js/products.js        # dati del catalogo (array PRODUCTS)
+js/app.js             # filtri, ricerca, carrello, checkout
+docs/verbali/         # verbali dei briefing
+```
+
+## 12. Verifiche effettuate
+- Sintassi dei file JavaScript controllata con `node --check`.
+- Tutti gli `id` usati da `app.js` esistono in `index.html`.
+- Logica provata con un DOM simulato: 12 prodotti, filtro per categoria, ricerca («limited», «nero»), ordinamento crescente/decrescente, righe separate per taglia/colore, rimozione degli esauriti, salvataggio del carrello e regole di validazione del form.
+- **Da fare dal team nel browser:** prova manuale su smartphone, tablet e desktop e test del ricaricamento della pagina con il carrello pieno.
+
+## 13. Prossimi passi
+- [ ] Abilitare su GitHub la protezione del ramo `main` con review obbligatoria (Ibraimi).
+- [ ] Verbali n. 2, 3… a ogni stand-up.
+- [ ] Preparare slide e demo live per il pitch finale (strumenti, grafico dei rami in *Insights → Network*, retrospettiva sulle difficoltà).
