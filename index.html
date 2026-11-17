@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RADICE — Ethical Streetwear</title>
+  <meta name="description" content="Streetwear etico in cotone organico. Capi senza tempo, edizioni limitate, produzione trasparente.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="#" class="logo" aria-label="RADICE, home">RADICE<span>.</span></a>
+    <nav class="header-actions">
+      <button id="cart-toggle" class="cart-btn" aria-label="Apri il carrello">
+        Carrello <span id="cart-badge" class="badge">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Ethical Streetwear · Cotone organico GOTS</p>
+      <h1>Vesti forte.<br>Pesa leggero sul pianeta.</h1>
+      <p>Capi pensati per durare, prodotti con filiera trasparente e salari equi. Spedizione gratuita oltre 50&nbsp;&euro;.</p>
+      <a href="#catalogo" class="btn btn-primary">Scopri la collezione</a>
+    </div>
+  </section>
+
+  <section class="values container">
+    <div><strong>100% organico</strong><span>Cotone certificato GOTS</span></div>
+    <div><strong>Filiera etica</strong><span>Produzione in Portogallo</span></div>
+    <div><strong>Edizioni limitate</strong><span>Mai ristampate</span></div>
+    <div><strong>Resi 30 giorni</strong><span>Semplici e gratuiti</span></div>
+  </section>
+
+  <main id="catalogo" class="container">
+    <h2>La collezione</h2>
+
+    <div class="toolbar">
+      <label class="field">
+        <span>Cerca</span>
+        <input type="search" id="search" placeholder="Es. oversize, nero, limited…" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>Categoria</span>
+        <select id="category-filter">
+          <option value="all">Tutte</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Ordina per prezzo</span>
+        <select id="sort">
+          <option value="none">Predefinito</option>
+          <option value="asc">Crescente</option>
+          <option value="desc">Decrescente</option>
+        </select>
+      </label>
+    </div>
+
+    <p id="results-count" class="results-count" aria-live="polite"></p>
+    <div id="product-grid" class="product-grid"></div>
+    <p id="empty-state" class="empty-state" hidden>Nessun prodotto trovato. Prova a cambiare i filtri.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 RADICE — Sito dimostrativo realizzato da <strong>PMA AGENCY</strong> (Classe 5ª Informatica).</p>
+  </footer>
+
+  <!-- Dettaglio prodotto -->
+  <dialog id="product-modal" class="modal" aria-labelledby="modal-title">
+    <button class="modal-close" data-close aria-label="Chiudi">&times;</button>
+    <div class="modal-body">
+      <img id="modal-img" alt="">
+      <div class="modal-info">
+        <div class="tags"><span id="modal-category" class="tag"></span><span id="modal-limited" class="tag tag-limited" hidden>Edizione limitata</span></div>
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <p id="modal-notes" class="notes"></p>
+        <label class="field" id="modal-size-wrap">
+          <span>Taglia</span>
+          <select id="modal-size"></select>
+          <button type="button" class="btn-link" id="size-guide-open">Guida alle taglie</button>
+        </label>
+        <label class="field" id="modal-color-wrap">
+          <span>Colore</span>
+          <select id="modal-color"></select>
+        </label>
+        <p class="price" id="modal-price"></p>
+        <button id="modal-add" class="btn btn-primary">Aggiungi al carrello</button>
+        <p id="modal-unavailable" class="unavailable" hidden>Attualmente non disponibile</p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Guida alle taglie -->
+  <dialog id="size-modal" class="modal modal-small" aria-labelledby="size-title">
+    <button class="modal-close" data-close aria-label="Chiudi">&times;</button>
+    <div class="checkout">
+      <h3 id="size-title">Guida alle taglie</h3>
+      <p class="notes">Misure del capo in centimetri, prese stese a terra. Se sei tra due taglie, scegli la più grande per un look oversize.</p>
+      <div class="table-wrap">
+        <table class="size-table">
+          <thead><tr><th>Taglia</th><th>Petto</th><th>Lunghezza</th><th>Spalle</th></tr></thead>
+          <tbody>
+            <tr><td>XS</td><td>92</td><td>66</td><td>41</td></tr>
+            <tr><td>S</td><td>97</td><td>68</td><td>43</td></tr>
+            <tr><td>M</td><td>102</td><td>70</td><td>45</td></tr>
+            <tr><td>L</td><td>108</td><td>72</td><td>47</td></tr>
+            <tr><td>XL</td><td>114</td><td>74</td><td>49</td></tr>
+            <tr><td>XXL</td><td>120</td><td>76</td><td>51</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="notes">Le «Tee Oversize» e le felpe hanno una vestibilità più ampia: puoi prendere la tua taglia abituale.</p>
+    </div>
+  </dialog>
+
+  <!-- Carrello (drawer) -->
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="cart-drawer" class="drawer" aria-label="Carrello" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Il tuo carrello</h3>
+      <button class="modal-close" id="cart-close" aria-label="Chiudi il carrello">&times;</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+    <div class="cart-summary">
+      <div class="row"><span>Subtotale</span><span id="cart-subtotal">0,00 €</span></div>
+      <div class="row"><span>Spedizione</span><span id="cart-shipping">0,00 €</span></div>
+      <p id="shipping-hint" class="hint"></p>
+      <div class="row total"><span>Totale</span><span id="cart-total">0,00 €</span></div>
+      <button id="checkout-btn" class="btn btn-primary btn-block">Vai al checkout</button>
+      <button id="clear-btn" class="btn btn-link">Svuota carrello</button>
+    </div>
+  </aside>
+
+  <!-- Checkout -->
+  <dialog id="checkout-modal" class="modal" aria-labelledby="checkout-title">
+    <button class="modal-close" data-close aria-label="Chiudi">&times;</button>
+    <div id="checkout-view" class="checkout">
+      <h3 id="checkout-title">Checkout</h3>
+      <form id="checkout-form" novalidate>
+        <div class="form-row">
+          <label class="field">
+            <span>Nome e cognome</span>
+            <input type="text" name="name" autocomplete="name" required>
+            <small class="error" data-error-for="name"></small>
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" required>
+            <small class="error" data-error-for="email"></small>
+          </label>
+        </div>
+        <label class="field">
+          <span>Indirizzo</span>
+          <input type="text" name="address" autocomplete="street-address" required>
+          <small class="error" data-error-for="address"></small>
+        </label>
+        <div class="form-row">
+          <label class="field">
+            <span>Città</span>
+            <input type="text" name="city" autocomplete="address-level2" required>
+            <small class="error" data-error-for="city"></small>
+          </label>
+          <label class="field">
+            <span>CAP</span>
+            <input type="text" name="cap" inputmode="numeric" maxlength="5" autocomplete="postal-code" required>
+            <small class="error" data-error-for="cap"></small>
+          </label>
+        </div>
+        <label class="field">
+          <span>Metodo di pagamento</span>
+          <select name="payment" required>
+            <option value="">Seleziona…</option>
+            <option value="card">Carta di credito (simulato)</option>
+            <option value="paypal">PayPal (simulato)</option>
+            <option value="cod">Contrassegno</option>
+          </select>
+          <small class="error" data-error-for="payment"></small>
+        </label>
+        <p class="checkout-total">Totale ordine: <strong id="checkout-total"></strong></p>
+        <button type="submit" class="btn btn-primary btn-block">Conferma ordine</button>
+      </form>
+    </div>
+    <div id="confirm-view" class="checkout" hidden>
+      <h3>Grazie per il tuo ordine! 🌱</h3>
+      <p>Ordine <strong id="order-id"></strong> confermato. Riceverai una email di riepilogo a <strong id="order-email"></strong>.</p>
+      <p>Il tuo ordine verrà spedito in imballaggio 100% riciclato entro 48 ore.</p>
+      <button class="btn btn-primary" data-close>Torna alla collezione</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
